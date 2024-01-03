@@ -5,7 +5,7 @@ Animated Towers of Hanoi using Tk with optional bitmap file in background.
 
 Usage: hanoi.py [n [bitmapfile]]
 
-n is the number of pieces to animate; default is 4, maximum 15.
+n is the number of pieces to animate; default is 4, maximum 15.#n是用来推动的数字,默认值是4,最大值是15
 
 The bitmap file can be any X11 bitmap file (look in /usr/include/X11/bitmaps for
 samples); it is displayed as the background of the animation.  Default is no
@@ -23,10 +23,10 @@ def hanoi(n, a, b, c, report):
     hanoi(n-1, c, b, a, report)
 
 
-# The graphical interface
+# The graphical interface,图画似的界面
 class Tkhanoi:
 
-    # Create our objects
+    # Create our objects,创建物体
     def __init__(self, n, bitmap=None):
         self.n = n
         self.tk = tk = Tk()
@@ -34,15 +34,15 @@ class Tkhanoi:
         c.pack()
         width, height = tk.getint(c['width']), tk.getint(c['height'])
 
-        # Add background bitmap
+        # Add background bitmap,添加背景位图
         if bitmap:
             self.bitmap = c.create_bitmap(width//2, height//2,
                                           bitmap=bitmap,
                                           foreground='blue')
 
-        # Generate pegs
+        # Generate pegs,产生支柱
         pegwidth = 10
-        pegheight = height//2
+        pegheight = height//2   #//神马意思?
         pegdist = width//3
         x1, y1 = (pegdist-pegwidth)//2, height*1//3
         x2, y2 = x1+pegwidth, y1+pegheight
@@ -50,14 +50,14 @@ class Tkhanoi:
         p = c.create_rectangle(x1, y1, x2, y2, fill='black')
         self.pegs.append(p)
         x1, x2 = x1+pegdist, x2+pegdist
-        p = c.create_rectangle(x1, y1, x2, y2, fill='black')
+        p = c.create_rectangle(x1, y1, x2, y2, fill='black') #建立一个三角形,黑色填充?
         self.pegs.append(p)
         x1, x2 = x1+pegdist, x2+pegdist
         p = c.create_rectangle(x1, y1, x2, y2, fill='black')
         self.pegs.append(p)
         self.tk.update()
 
-        # Generate pieces
+        # Generate pieces  ,创建小块
         pieceheight = pegheight//16
         maxpiecewidth = pegdist*2//3
         minpiecewidth = 2*pegwidth
@@ -100,7 +100,7 @@ class Tkhanoi:
             c.move(p, 0, -1)
             self.tk.update()
 
-        # Move it towards peg b
+        # Move it towards peg b,把它移向b柱
         bx1, by1, bx2, by2 = c.bbox(self.pegs[b])
         newcenter = (bx1+bx2)//2
         while True:
@@ -142,13 +142,13 @@ def main():
     else:
         bitmap = None
 
-    # Create the graphical objects...
+    # Create the graphical objects...  建立这个绘图物体
     h = Tkhanoi(n, bitmap)
 
     # ...and run!
     h.run()
 
 
-# Call main when run as script
+# Call main when run as script,当按照脚本运行时称主要部分?
 if __name__ == '__main__':
     main()
